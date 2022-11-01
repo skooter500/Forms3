@@ -555,6 +555,7 @@ public class CornerCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         //float v = 100.0f;
         //RenderSettings.ambientLight = new Color(v,v,v,1);
         elapsed = transitionTime;
@@ -574,12 +575,14 @@ public class CornerCamera : MonoBehaviour
         cam.transform.localPosition = lp;
         
         //material.SetFloat("_TimeMultiplier", 0);
+        */
     }
 
 
     // Update is called once per frame
     void Update()
     {       
+        /*
 
         material.SetFloat("_TimeMultiplier", Mathf.Lerp(material.GetFloat("_TimeMultiplier"), desiredShaderTime, Time.deltaTime));
         material.SetFloat("_PositionScale", Mathf.Lerp(material.GetFloat("_PositionScale"), desiredRange, Time.deltaTime));
@@ -630,6 +633,7 @@ public class CornerCamera : MonoBehaviour
                     break;                    
                 }                
             }            
-        }       
+        }     
+        */
     }
 }

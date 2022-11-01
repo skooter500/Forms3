@@ -77,7 +77,8 @@ namespace BGE.Forms
                     }
                 }
                 programmableTexture.Apply();
-                genTexture.wrapMode = TextureWrapMode.Mirror;
+                genTexture.wrapMode = TextureWrapMode.Mirror
+                    ;
             }
 
             switch (textureSource)
