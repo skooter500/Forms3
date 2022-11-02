@@ -121,7 +121,7 @@ Shader "Custom/HeightColor"
         {
             
 
-			float h = pingpongMap(IN.worldPos.y, 0, 20, 0, 0.5);
+			float h = pingpongMap(IN.worldPos.y, 0, 10000, 0.6, 0.8);
 			fixed3 c = hsv_to_rgb(float3(h, 1, 1));
 			o.Albedo = c;
 			// Metallic and smoothness come from slider variables
