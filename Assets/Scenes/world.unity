@@ -17890,7 +17890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transMaterial: {fileID: 2100000, guid: 5f832c36240cca0468d3419091990a0b, type: 2}
   opaqueMaterial: {fileID: 2100000, guid: 152ac98c5156b144485c42bf9b4a4727, type: 2}
-  colorMapScaling: 2000
+  colorMapScaling: 500
   texture: {fileID: 0}
   particleTexture: {fileID: 0}
   colorScale: 1
@@ -17899,7 +17899,7 @@ MonoBehaviour:
   targetFade: 1
   startFade: 0
   waitAFrame: 0
-  textureSource: 2
+  textureSource: 0
 --- !u!114 &587735054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17941,7 +17941,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587735051}
   m_LocalRotation: {x: -0.000000047716693, y: -0.983182, z: -0.000000047716718, w: 0.18262838}
-  m_LocalPosition: {x: 0, y: 1000, z: 1000}
+  m_LocalPosition: {x: 0, y: 700, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18469,14 +18469,14 @@ MonoBehaviour:
   force: {x: 0, y: 0, z: 0}
   forceMagnitude: 0
   boid: {fileID: 0}
-  frequency: 0.7
+  frequency: 0.6
   amplitude: 100
   direction: 1
   auto: 1
   theta: 0
   rampedFrequency: 0
   rampedAmplitude: 0
-  radius: 200
+  radius: 250
   distance: 100
   yawRoll: {x: 0, y: 0, z: 0}
   worldTarget: {x: 0, y: 0, z: 0}
@@ -18517,7 +18517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  weight: 1
+  weight: 5
   force: {x: 0, y: 0, z: 0}
   forceMagnitude: 0
   boid: {fileID: 0}
@@ -18571,7 +18571,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609485699}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103049ee6a59e5d47b6b1dbf36f81847, type: 3}
   m_Name: 
@@ -18632,7 +18632,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0, w: 1}
   mass: 1
   maxSpeed: 500
-  maxForce: 500
+  maxForce: 600
   weight: 1
   damping: 0.01
   calculationMethod: 1
@@ -26629,12 +26629,9 @@ MonoBehaviour:
   surfaceHeight: 11000
   cannibisPrefab: {fileID: 0}
   groundMaterials:
-  - {fileID: 2100000, guid: c7e66986857b55f44bf6cfd6cfc89207, type: 2}
-  - {fileID: 2100000, guid: c7e66986857b55f44bf6cfd6cfc89207, type: 2}
-  - {fileID: 2100000, guid: c3b5aee816226ef45a4778688c4f448d, type: 2}
-  - {fileID: 2100000, guid: c3b5aee816226ef45a4778688c4f448d, type: 2}
+  - {fileID: 2100000, guid: ed1d3cdbf9e01e743bcc36b861333b1a, type: 2}
   groundMaterialIndex: 0
-  ceilingMaterial: {fileID: 0}
+  ceilingMaterial: {fileID: 2100000, guid: ed1d3cdbf9e01e743bcc36b861333b1a, type: 2}
   ceilingLayer: 20
   forceCheck: 0
   ellapsed: 0
@@ -26854,7 +26851,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
