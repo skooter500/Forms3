@@ -17941,7 +17941,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587735051}
   m_LocalRotation: {x: -0.000000047716693, y: -0.983182, z: -0.000000047716718, w: 0.18262838}
-  m_LocalPosition: {x: 0, y: 500, z: 1000}
+  m_LocalPosition: {x: 0, y: 1000, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18631,7 +18631,7 @@ MonoBehaviour:
   right: {x: 1, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   mass: 1
-  maxSpeed: 300
+  maxSpeed: 500
   maxForce: 500
   weight: 1
   damping: 0.01
@@ -24413,7 +24413,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   player: {fileID: 1529276216}
-  newtons: 5000
+  newtons: 10000
 --- !u!114 &828112690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26854,7 +26854,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -41945,7 +41945,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   player: {fileID: 1529276216}
-  newtons: 5000
+  newtons: 10000
 --- !u!114 &1696069635
 MonoBehaviour:
   m_ObjectHideFlags: 0
