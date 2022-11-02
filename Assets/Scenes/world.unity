@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.001
+  m_FogDensity: 0.0005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -17890,7 +17890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transMaterial: {fileID: 2100000, guid: 5f832c36240cca0468d3419091990a0b, type: 2}
   opaqueMaterial: {fileID: 2100000, guid: 152ac98c5156b144485c42bf9b4a4727, type: 2}
-  colorMapScaling: 500
+  colorMapScaling: 2000
   texture: {fileID: 0}
   particleTexture: {fileID: 0}
   colorScale: 1
@@ -17941,7 +17941,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587735051}
   m_LocalRotation: {x: -0.000000047716693, y: -0.983182, z: -0.000000047716718, w: 0.18262838}
-  m_LocalPosition: {x: 0, y: -500, z: 1000}
+  m_LocalPosition: {x: 0, y: 500, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18387,12 +18387,12 @@ GameObject:
   - component: {fileID: 609485711}
   - component: {fileID: 609485710}
   - component: {fileID: 609485709}
+  - component: {fileID: 609485703}
   - component: {fileID: 609485708}
   - component: {fileID: 609485707}
   - component: {fileID: 609485706}
   - component: {fileID: 609485705}
   - component: {fileID: 609485704}
-  - component: {fileID: 609485703}
   - component: {fileID: 609485702}
   - component: {fileID: 609485701}
   - component: {fileID: 609485700}
@@ -18440,7 +18440,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609485699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 697908e8490310a43b476586a6556ee4, type: 3}
   m_Name: 
@@ -18469,8 +18469,8 @@ MonoBehaviour:
   force: {x: 0, y: 0, z: 0}
   forceMagnitude: 0
   boid: {fileID: 0}
-  frequency: 1
-  amplitude: 40
+  frequency: 0.7
+  amplitude: 100
   direction: 1
   auto: 1
   theta: 0
@@ -18631,7 +18631,7 @@ MonoBehaviour:
   right: {x: 1, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
   mass: 1
-  maxSpeed: 200
+  maxSpeed: 300
   maxForce: 500
   weight: 1
   damping: 0.01
@@ -26543,11 +26543,11 @@ MonoBehaviour:
   secondaryBackGround: {r: 1, g: 1, b: 1, a: 1}
   foreGround: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   updatesPerSecond: 30
-  speed: 1
+  speed: 0.5
   wrap: 0
   sat: 1
   brightness: 0.8
-  monochrome: 1
+  monochrome: 0
   generation: 0
   generationMax: 100
   ellapsed: 0
@@ -26630,6 +26630,9 @@ MonoBehaviour:
   cannibisPrefab: {fileID: 0}
   groundMaterials:
   - {fileID: 2100000, guid: c7e66986857b55f44bf6cfd6cfc89207, type: 2}
+  - {fileID: 2100000, guid: c7e66986857b55f44bf6cfd6cfc89207, type: 2}
+  - {fileID: 2100000, guid: c3b5aee816226ef45a4778688c4f448d, type: 2}
+  - {fileID: 2100000, guid: c3b5aee816226ef45a4778688c4f448d, type: 2}
   groundMaterialIndex: 0
   ceilingMaterial: {fileID: 0}
   ceilingLayer: 20
