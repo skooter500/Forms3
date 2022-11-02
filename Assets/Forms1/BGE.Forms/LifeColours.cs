@@ -77,8 +77,7 @@ namespace BGE.Forms
                     }
                 }
                 programmableTexture.Apply();
-                genTexture.wrapMode = TextureWrapMode.Mirror
-                    ;
+                genTexture.wrapMode = TextureWrapMode.Mirror;
             }
 
             switch (textureSource)
@@ -103,14 +102,103 @@ namespace BGE.Forms
         {
             //tg = GetComponent<TextureGenerator>();
             InitializeProgrammableTexture();
+         
+            FadeIn();
+        }
 
+
+        private Coroutine fadeInCoroutine;
+
+        public void FadeIn()
+        {
+            if (fadeInCoroutine != null)
+            {
+                StopCoroutine(fadeInCoroutine);
+            }
+            startFade = 0;
+            targetFade = targetAlpha;
+            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
+        }
+
+        public void FadeOut()
+        {
+            if (fadeInCoroutine != null)
+            {
+                StopCoroutine(fadeInCoroutine);
+            }
+            startFade = targetAlpha;
+            targetFade = 0.0f;
+            fadeInCoroutine = StartCoroutine(FadeInCoRoutine());
+        }
+
+        System.Collections.IEnumerator FadeInCoRoutine()
+        {
+            if (waitAFrame) yield return null;
             children = GetComponentsInChildren<Renderer>();            
             foreach (Renderer child in children)
             {
+                child.enabled = true;
+                if (child.material.name.Contains("Trans"))
+                {
+                    continue;
+                }
                 child.material = transMaterial;
+                child.material.SetFloat("_PositionScale", colorMapScaling);
+                if (child.material.HasProperty("_ColorTex"))
+                {
+                    child.material.mainTexture = particleTexture;
+                    child.material.SetTexture("_ColorTex", texture);
+                }
+                else
+                {
+                    child.material.mainTexture = texture;
+                }
+                child.material.SetTexture("_EmissionMap", texture);
+                child.material.SetFloat("_Fade", startFade);
             }
-         
-            //FadeIn();
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.5f));
+            float fade = startFade;
+            float delta = 0.1f;
+            if (startFade == 1)
+            {
+                delta = -0.1f;
+            }
+            while (Mathf.Abs(fade - targetFade) > 0.01f)
+            {
+                foreach (Renderer child in children)
+                {
+                    if (child.material.name.Contains("Trans"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        child.material.SetFloat("_Fade", fade);
+                    }
+                }
+                fade += delta / 3.0f;
+                yield return new WaitForSeconds(delta);
+            }
+            if (targetFade == 1)
+            {
+                foreach (Renderer child in children)
+                {
+                    if (child.material.name.Contains("Trans"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        float offs = child.material.GetFloat("_Offset");
+                        child.material = opaqueMaterial;
+                        child.material.SetFloat("_Offset", offs);
+                        child.material.SetFloat("_PositionScale", colorMapScaling);
+                        //child.material.SetTexture("_EmissionMap", texture);
+                        child.material.mainTexture = texture;
+                        child.material.SetFloat("_Fade", targetFade);
+                    }
+                }
+            }
         }
     }
 }

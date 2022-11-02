@@ -32,14 +32,6 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled && boid.drawGizmos)
-            {
-                Gizmos.color = Color.cyan;
-                Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward * distance, transform);
-                Gizmos.DrawWireSphere(wanderCircleCenter, radius);
-                Vector3 worldTarget = Utilities.TransformPointNoScale(target + Vector3.forward * distance, transform);
-                Gizmos.DrawLine(transform.position, worldTarget);
-            }
         }
 
         public override Vector3 Calculate()
