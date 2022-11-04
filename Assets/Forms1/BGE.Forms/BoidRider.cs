@@ -22,7 +22,7 @@ namespace BGE.Forms
         public void OnTriggerEnter(Collider c)
         {
             GameObject other = c.gameObject;
-            if (other.tag == "Player" && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
+            if (other.tag == "Player")
             {                
                 
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
