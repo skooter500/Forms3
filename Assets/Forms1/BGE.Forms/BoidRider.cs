@@ -27,13 +27,12 @@ namespace BGE.Forms
                 
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
                 other.transform.parent = this.transform.parent;
-                other.GetComponent<ForceController>().moveEnabled = false;
-                other.GetComponent<ForceController>().attachedToCreature = true;
-
+                
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 ps = boid.GetComponent<PlayerSteering>();
                 ps.SetActive(true);
+                ps.activateThrusters(false);
                 ps.hSpeed = 1.0f;
                 boid.GetComponent<Harmonic>().SetActive(true);
                 boid.GetComponent<Harmonic>().auto = false;
@@ -85,11 +84,11 @@ namespace BGE.Forms
         {
             GameObject other = c.gameObject;
             // iF its a player and still attached
-            if (other.tag == "Player" && other.transform.parent == this.transform.parent && PlayerController.Instance.controlType == PlayerController.ControlType.Player)
+            if (other.tag == "Player" && other.transform.parent == this.transform.parent)
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);                
                 // Dont do this in VR
-                if (!vrMode)
+                /*if (!vrMode)
                 {
                     ForceController fc = other.GetComponent<ForceController>();
                     if (fc.cameraType == ForceController.CameraType.forward)
@@ -100,7 +99,8 @@ namespace BGE.Forms
                             fc.desiredRotation = Quaternion.Slerp(fc.desiredRotation, parent.rotation, Time.deltaTime * 1.5f);
                         }
                     }
-                }                
+                } 
+                */
             }
         }
     }

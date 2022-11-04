@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using BGE.Forms;
+using UnityEngine.Windows;
 
 public class PlayerSteering : SteeringBehaviour
 {
@@ -31,6 +32,18 @@ public class PlayerSteering : SteeringBehaviour
     [HideInInspector]
     public bool controlSpeed = true;
 
+
+    private Thruster left;
+    private Thruster right;
+    private GameObject player;
+
+    public void activateThrusters(bool b)
+    {
+        left.enabled = b;
+        right.enabled = b;
+    }
+
+
     public void Start()
     {
         //viveController = FindObjectOfType<ViveController>();
@@ -38,29 +51,38 @@ public class PlayerSteering : SteeringBehaviour
         harmonic = GetComponent<Harmonic>();
         //vrMode = UnityEngine.XR.XRDevice.isPresent;
         maxSpeed = boid.maxSpeed;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        Thruster[] controllers = player.GetComponentsInChildren<Thruster>();
+        left = controllers[0];
+        right = controllers[1];
     }
     
 
     public override void Update()
     {
-        base.Update();
-        upForce = -Input.GetAxis("Vertical");
-        rightForce = Input.GetAxis("Horizontal") * 0.6f;
-        CreatureManager.Log("Player force: " + force);
-        CreatureManager.Log("RightForce: " + rightForce);
+        base.Update();        
 
-     
-        /*
-              hSpeed = Mathf.Lerp(hSpeed
-            ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 2, 0.0f, 0.01f)
-            , 2.0f * Time.deltaTime
-            );
+        average = Quaternion.Slerp(left.transform.rotation
+    , right.transform.rotation, 0.5f);
 
-        harmonic.theta += hSpeed * Time.deltaTime * harmonic.speed;
-        */
+        if (controlType == ControlType.Tenticle)
+        {
+            Vector3 xyz = average.eulerAngles;
+            harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+        }
+        if (controlType == ControlType.TenticleFlipped)
+        {
+            Vector3 xyz = average.eulerAngles;
+            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+        }
+
+        float l = left.input.action.ReadValue<float>();
+        float r = right.input.action.ReadValue<float>();
+
 
         hSpeed = Mathf.Lerp(hSpeed
-            ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)
+            ,Utilities.Map(l + r, 0, 1, 0.1f, 0.8f)
             , 2.0f * Time.deltaTime
             );
 
@@ -69,6 +91,9 @@ public class PlayerSteering : SteeringBehaviour
         {
             boid.maxSpeed = maxSpeed * hSpeed;
         }
+        CreatureManager.Log("hSpeed: " + hSpeed);
+        CreatureManager.Log("h Direction: " + average * Vector3.forward);
+
         //Debug.Log("Cont: " + contWalk);
     }
 
@@ -79,9 +104,10 @@ public class PlayerSteering : SteeringBehaviour
     {
         if (controlType == ControlType.Ride)
         {
-            force = (boid.right * rightForce * power)
+            /*force = (boid.right * rightForce * power)
                 + (boid.up * upForce * power);
-            if (vrMode)
+            */
+            //if (vrMode)
             {
                 force += average * Vector3.forward * power;
             }
@@ -91,7 +117,7 @@ public class PlayerSteering : SteeringBehaviour
             force = (boid.right * rightForce * power)
                             + (boid.up * upForce * power);
 
-            if (vrMode)
+            //if (vrMode)
             {
                 force += average * Vector3.forward * power;
             }
