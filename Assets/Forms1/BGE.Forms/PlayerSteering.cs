@@ -37,6 +37,12 @@ public class PlayerSteering : SteeringBehaviour
     private Thruster right;
     private GameObject player;
 
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(transform.position, transform.position + force * 50);
+    }
+
     public void activateThrusters(bool b)
     {
         left.readInput = b;
@@ -61,10 +67,10 @@ public class PlayerSteering : SteeringBehaviour
 
     public override void Update()
     {
-        base.Update();        
-
-        average = Quaternion.Slerp(left.transform.rotation
-    , right.transform.rotation, 0.5f);
+        base.Update();
+        Debug.DrawLine(transform.position, transform.position + force * 50);
+        average = Quaternion.Slerp(left.transform.parent.rotation
+    , right.transform.parent.rotation, 0.5f);
 
         if (controlType == ControlType.Tenticle)
         {
@@ -107,17 +113,14 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = (boid.right * rightForce * power)
                 + (boid.up * upForce * power);
-            //if (vrMode)
-            {
-                force += average * Vector3.forward * power * hSpeed;
-            }
+            force += average * Vector3.forward * power;            
         }
         else if (controlType == ControlType.JellyTenticle)
         {
             force = (boid.right * rightForce * power)
                             + (boid.up * upForce * power);
 
-            //if (vrMode)
+            if (vrMode)
             {
                 force += average * Vector3.forward * power;
             }
@@ -126,6 +129,6 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = Vector3.zero;
         }
-        return Vector3.zero;
+        return force;
     }
 }

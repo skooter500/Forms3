@@ -50,7 +50,7 @@ namespace BGE.Forms
                     vt.UnVary();
                 }
                 
-                /*Constrain con = boid.GetComponent<Constrain>();
+                Constrain con = boid.GetComponent<Constrain>();
                 if (con != null)
                 {
                     con.SetActive(false);
@@ -65,7 +65,6 @@ namespace BGE.Forms
                 {
                     boid.GetComponent<JitterWander>().SetActive(false);
                 }
-                */
                 RotateMe r = GetComponent<RotateMe>();
                 if (r != null)
                 {
