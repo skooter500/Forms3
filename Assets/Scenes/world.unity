@@ -18088,14 +18088,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587735051}
-  m_LocalRotation: {x: -0.00000008400266, y: -0.6459596, z: -0.000000084002735, w: -0.76337165}
+  m_LocalRotation: {x: -0.000000034686252, y: 0.35349646, z: -0.000000034686305, w: -0.9354359}
   m_LocalPosition: {x: 0, y: -149, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: -279.525, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -401.403, z: 0}
 --- !u!1 &595682836
 GameObject:
   m_ObjectHideFlags: 0
@@ -24675,7 +24675,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   player: {fileID: 1529276216}
   newtons: 10000
 --- !u!114 &828112690
@@ -42289,7 +42289,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696069610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 538ff09e30d9bd944b8153fa8bc76bef, type: 3}
   m_Name: 
@@ -42320,7 +42320,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   player: {fileID: 1529276216}
   newtons: 10000
 --- !u!114 &1696069635
