@@ -81,16 +81,13 @@ public class PlayerSteering : SteeringBehaviour
         float r = right.input.action.ReadValue<float>();
 
 
-        /*
         hSpeed = Mathf.Lerp(hSpeed
-            ,Utilities.Map(l + r, 0, 1, 0.1f, 0.8f)
+            , Utilities.Map(l + r, 0, 1, 0.1f, 0.8f)
             , 2.0f * Time.deltaTime
             );
-        */
 
-        hSpeed = l + r;
 
-        harmonic.theta += hSpeed * Time.deltaTime;
+        harmonic.multiplier = l + r;
         if (controlSpeed && controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {
             boid.maxSpeed = maxSpeed * hSpeed;
@@ -108,9 +105,8 @@ public class PlayerSteering : SteeringBehaviour
     {
         if (controlType == ControlType.Ride)
         {
-            /*force = (boid.right * rightForce * power)
+            force = (boid.right * rightForce * power)
                 + (boid.up * upForce * power);
-            */
             //if (vrMode)
             {
                 force += average * Vector3.forward * power * hSpeed;
@@ -130,6 +126,6 @@ public class PlayerSteering : SteeringBehaviour
         {
             force = Vector3.zero;
         }
-        return force;
+        return Vector3.zero;
     }
 }

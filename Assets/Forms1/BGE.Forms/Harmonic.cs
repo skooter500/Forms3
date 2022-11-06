@@ -45,7 +45,7 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
+            Gizmos.color = Color.yellow;
             Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward * distance, transform);
             Gizmos.DrawWireSphere(wanderCircleCenter, radius);
 
@@ -94,16 +94,14 @@ namespace BGE.Forms
 
         CornerCamera cc;
 
+        public float multiplier = 1.0f;
+
         public override void Update()
         {
-            this.theta += Time.deltaTime * frequency * Mathf.PI * 2.0f * cc.timeScale;
-            /*
-            if (auto)
-            {
-                rampedFreqsuency = Mathf.Lerp(rampedFrequency, frequency, boid.TimeDelta);
-                this.theta += boid.TimeDelta * rampedFrequency * Mathf.PI * 2.0f;
-            }
-            */
+            //this.theta += Time.deltaTime * frequency * Mathf.PI * 2.0f * cc.timeScale;
+            rampedFrequency = Mathf.Lerp(rampedFrequency, frequency, boid.TimeDelta);
+            this.theta += boid.TimeDelta * rampedFrequency * Mathf.PI * 2.0f * multiplier;
+            
         }
     }
 }

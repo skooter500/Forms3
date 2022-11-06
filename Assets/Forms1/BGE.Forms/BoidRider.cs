@@ -34,28 +34,23 @@ namespace BGE.Forms
                 ps.SetActive(true);
                 ps.activateThrusters(false);
                 ps.hSpeed = 1.0f;
-                boid.GetComponent<Harmonic>().SetActive(true);
-                boid.GetComponent<Harmonic>().auto = false;
-
-                if (boid.GetComponent<Seek>() != null)
-                {
-                    boid.GetComponent<Seek>().SetActive(false);
-                }
+                //boid.GetComponent<Harmonic>().SetActive(true);
+                
                 HarmonicController hc = boid.GetComponent<HarmonicController>();
                 if (boid.GetComponent<HarmonicController>() != null)
                 {
                     hc.enabled = false;
-                    boid.GetComponent<Harmonic>().amplitude = hc.initialAmplitude;
+                    //boid.GetComponent<Harmonic>().amplitude = hc.initialAmplitude;
                     //boid.GetComponent<Harmonic>().speed = hc.initialSpeed;
                 }
-
+                
                 VaryTenticles vt = boid.transform.parent.GetComponent<VaryTenticles>();
                 if (vt != null)
                 {
                     vt.UnVary();
                 }
                 
-                Constrain con = boid.GetComponent<Constrain>();
+                /*Constrain con = boid.GetComponent<Constrain>();
                 if (con != null)
                 {
                     con.SetActive(false);
@@ -70,12 +65,13 @@ namespace BGE.Forms
                 {
                     boid.GetComponent<JitterWander>().SetActive(false);
                 }
+                */
                 RotateMe r = GetComponent<RotateMe>();
                 if (r != null)
                 {
                     r.speed = 0;
                 }
-                boid.damping = 0.01f;
+                //boid.damping = 0.01f;
                 Debug.Log(boid);
             }
         }

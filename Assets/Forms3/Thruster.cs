@@ -1,3 +1,4 @@
+using BGE.Forms;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class Thruster : MonoBehaviour
     void Update()
     {        
         float fire = (readInput) ? input.action.ReadValue<float>() : 0;
+        CreatureManager.Log("Fire: " + fire);
         float newScale = Mathf.Lerp(transform.localScale.z, maxScale * fire, Time.deltaTime);
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, newScale);
 
