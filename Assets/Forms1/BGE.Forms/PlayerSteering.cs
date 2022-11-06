@@ -39,8 +39,8 @@ public class PlayerSteering : SteeringBehaviour
 
     public void activateThrusters(bool b)
     {
-        left.enabled = b;
-        right.enabled = b;
+        left.readInput = b;
+        right.readInput = b;
     }
 
 
@@ -81,10 +81,14 @@ public class PlayerSteering : SteeringBehaviour
         float r = right.input.action.ReadValue<float>();
 
 
+        /*
         hSpeed = Mathf.Lerp(hSpeed
             ,Utilities.Map(l + r, 0, 1, 0.1f, 0.8f)
             , 2.0f * Time.deltaTime
             );
+        */
+
+        hSpeed = l + r;
 
         harmonic.theta += hSpeed * Time.deltaTime;
         if (controlSpeed && controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
@@ -109,7 +113,7 @@ public class PlayerSteering : SteeringBehaviour
             */
             //if (vrMode)
             {
-                force += average * Vector3.forward * power;
+                force += average * Vector3.forward * power * hSpeed;
             }
         }
         else if (controlType == ControlType.JellyTenticle)

@@ -24493,19 +24493,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalRotation.y
@@ -24517,7 +24517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -24637,21 +24637,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &828112682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828112671}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 538ff09e30d9bd944b8153fa8bc76bef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3216823436898768943, guid: 627c52fdc4a4d8a4bad1119e64426903, type: 3}
-  bulletSpawn: {fileID: 1915544594}
-  fireRate: 5
 --- !u!114 &828112686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40387,19 +40372,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalRotation.y
@@ -40411,7 +40396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 406634, guid: ea40af0b103306e45a6107ade5419c3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -42282,21 +42267,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1696069627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1696069610}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 538ff09e30d9bd944b8153fa8bc76bef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3216823436898768943, guid: 627c52fdc4a4d8a4bad1119e64426903, type: 3}
-  bulletSpawn: {fileID: 53341442}
-  fireRate: 5
 --- !u!114 &1696069631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50149,7 +50119,7 @@ MonoBehaviour:
     m_ActionName: XRI LeftHand Interaction/Select Value
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696069627}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Shooting, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 0
@@ -50229,7 +50199,7 @@ MonoBehaviour:
     m_ActionName: XRI RightHand Interaction/Select Value
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 828112682}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Shooting, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 0

@@ -14,7 +14,6 @@ namespace BGE.Forms
 
         public float weight = 1.0f;
 
-        [HideInInspector]
         public Vector3 force;
 
         public float forceMagnitude;

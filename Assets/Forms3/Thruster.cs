@@ -11,6 +11,7 @@ public class Thruster : MonoBehaviour
     private AudioSource audioSource;
 
     private float maxScale;
+    public bool readInput = true;
     // Use this for initialization
     void Start()
     {
@@ -23,8 +24,8 @@ public class Thruster : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        float fire = input.action.ReadValue<float>();
+    {        
+        float fire = (readInput) ? input.action.ReadValue<float>() : 0;
         float newScale = Mathf.Lerp(transform.localScale.z, maxScale * fire, Time.deltaTime);
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, newScale);
 
