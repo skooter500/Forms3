@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 namespace BGE.Forms
 {
@@ -10,6 +11,10 @@ namespace BGE.Forms
         [HideInInspector]
         PlayerSteering ps;
 
+        bool attached = false;
+
+        public InputActionProperty input;
+
         // Use this for initialization
         void Start()
         {
@@ -19,14 +24,56 @@ namespace BGE.Forms
 
         Quaternion targetQuaternion = Quaternion.identity;
 
+        public void Detatch()
+        {
+            Debug.Log("Detatch");
+            if (attached)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                attached = false;
+
+                Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
+                //other.transform.parent = this.transform.parent;
+
+                player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                player.GetComponent<Rigidbody>().isKinematic = false;
+                ps = boid.GetComponent<PlayerSteering>();
+                ps.activateThrusters(true);
+                ps.SetActive(false);
+                
+                if (boid.GetComponent<NoiseWander>() != null)
+                {
+                    boid.GetComponent<NoiseWander>().SetActive(true);
+                }
+
+                
+                boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
+
+
+                
+
+                VaryTenticles vt = boid.transform.parent.GetComponent<VaryTenticles>();
+                if (vt != null)
+                {
+                    vt.Vary();
+                }
+
+                RotateMe[] r = FindObjectsOfType<RotateMe>();
+                foreach (RotateMe rm in r)
+                {
+                    rm.speed = 0.1f;
+                }
+            }
+        }
+
         public void OnTriggerEnter(Collider c)
         {
             GameObject other = c.gameObject;
             if (other.tag == "Player")
-            {                
-                
+            {
+                attached = true;
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
-                other.transform.parent = this.transform.parent;
+                //other.transform.parent = this.transform.parent;
                 
                 other.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.GetComponent<Rigidbody>().isKinematic = true;
@@ -79,9 +126,9 @@ namespace BGE.Forms
         {
             GameObject other = c.gameObject;
             // iF its a player and still attached
-            if (other.tag == "Player" && other.transform.parent == this.transform.parent)
+            if (other.tag == "Player" && attached)
             {
-                other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime);                
+                other.transform.position = Vector3.Lerp(other.transform.position, this.transform.position, Time.deltaTime * 5.0f);
                 // Dont do this in VR
                 /*if (!vrMode)
                 {
@@ -96,6 +143,11 @@ namespace BGE.Forms
                     }
                 } 
                 */
+                Debug.Log(input.action.ReadValue<float>());
+                if (input.action.ReadValue<float>() == 1)
+                {
+                    Detatch();
+                }
             }
         }
     }

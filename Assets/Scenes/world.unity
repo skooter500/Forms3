@@ -2907,6 +2907,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!135 &80140587
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8152,6 +8164,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!135 &194368737
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18555,12 +18579,12 @@ GameObject:
   - component: {fileID: 609485711}
   - component: {fileID: 609485710}
   - component: {fileID: 609485709}
-  - component: {fileID: 609485703}
   - component: {fileID: 609485708}
   - component: {fileID: 609485707}
   - component: {fileID: 609485706}
   - component: {fileID: 609485705}
   - component: {fileID: 609485704}
+  - component: {fileID: 609485703}
   - component: {fileID: 609485702}
   - component: {fileID: 609485701}
   - component: {fileID: 609485700}
@@ -18686,7 +18710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  weight: 7
+  weight: 1
   force: {x: 0, y: 0, z: 0}
   forceMagnitude: 0
   boid: {fileID: 0}
@@ -18740,7 +18764,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609485699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 103049ee6a59e5d47b6b1dbf36f81847, type: 3}
   m_Name: 
@@ -18760,7 +18784,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609485699}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc6acb90d90a7d42a12eb55603cf511, type: 3}
   m_Name: 
@@ -18801,7 +18825,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0, w: 1}
   mass: 1
   maxSpeed: 500
-  maxForce: 600
+  maxForce: 500
   weight: 1
   damping: 0.01
   calculationMethod: 1
@@ -19880,6 +19904,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!135 &646223128
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -23364,6 +23400,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!135 &750316026
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -23714,6 +23762,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!114 &776399902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23861,6 +23921,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!135 &783564756
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -27915,6 +27987,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!114 &985055118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34916,7 +35000,6 @@ Transform:
   - {fileID: 1593165459}
   - {fileID: 2138768869}
   - {fileID: 1943361598}
-  - {fileID: 1498616032}
   - {fileID: 530167638}
   - {fileID: 241743435}
   - {fileID: 924199424}
@@ -38165,7 +38248,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 2
-    m_TransformParent: {fileID: 1388246209}
+    m_TransformParent: {fileID: 2018621295}
     m_Modifications:
     - target: {fileID: 100000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_Name
@@ -38177,7 +38260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_RootOrder
-      value: 58
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_LocalScale.x
@@ -38193,15 +38276,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.169
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 200
+      value: 1.449997
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3a3599249a53ac84eb9f6e8a7d7b56dc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -41987,6 +42070,22 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1498616032}
     m_Modifications:
+    - target: {fileID: 2001260633, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
+      propertyPath: input.m_Reference
+      value: 
+      objectReference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 2001260633, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
+      propertyPath: input.m_Action.m_Id
+      value: c05daddf-4bd3-4a10-88ce-5ba50f616350
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001260633, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
+      propertyPath: input.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001260633, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
+      propertyPath: input.m_Action.m_Name
+      value: Input
+      objectReference: {fileID: 0}
     - target: {fileID: 5715958955817190003, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
       propertyPath: m_Name
       value: Dodecahedron
@@ -42043,6 +42142,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5715958955817426515, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
   m_PrefabInstance: {fileID: 1676068020}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1676068022 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2001260633, guid: 5dedf663e2174474fbccd175947317d4, type: 3}
+  m_PrefabInstance: {fileID: 1676068020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1691710993
 GameObject:
   m_ObjectHideFlags: 0
@@ -45820,6 +45930,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e450832270e2448a1f029c12176884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!135 &1850177851
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -50148,7 +50270,19 @@ MonoBehaviour:
     m_ActionId: 664a62b0-e178-421d-b3f8-014eec01591d
     m_ActionName: XRI LeftHand/Haptic Device
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1676068022}
+        m_TargetAssemblyTypeName: BGE.Forms.BoidRider, Assembly-CSharp
+        m_MethodName: Detatch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 33754c03-48ec-46ef-9bc6-22ed6bfdd8e8
     m_ActionName: XRI LeftHand Interaction/Select
   - m_PersistentCalls:
@@ -50350,6 +50484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1498616032}
   - {fileID: 609485714}
   - {fileID: 168019464}
   - {fileID: 264325767}

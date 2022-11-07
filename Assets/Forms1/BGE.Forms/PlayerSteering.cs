@@ -63,12 +63,24 @@ public class PlayerSteering : SteeringBehaviour
         left = controllers[0];
         right = controllers[1];
     }
+
+    float l;
+    float r;
     
 
     public override void Update()
     {
         base.Update();
-        Debug.DrawLine(transform.position, transform.position + force * 50);
+        Vector3[] points = new Vector3[2];
+        points[0] = transform.position;
+        points[1] = transform.position + force * 50;
+        LineRenderer lr = GetComponent<LineRenderer>();
+        if (lr == null)
+        {
+            lr = gameObject.AddComponent<LineRenderer>();
+        }
+        lr.SetPositions(points);
+        //Debug.DrawLine(transform.position, transform.position + force * 50);
         average = Quaternion.Slerp(left.transform.parent.rotation
     , right.transform.parent.rotation, 0.5f);
 
@@ -83,8 +95,8 @@ public class PlayerSteering : SteeringBehaviour
             harmonic.theta = Mathf.Deg2Rad * (xyz.x);
         }
 
-        float l = left.input.action.ReadValue<float>();
-        float r = right.input.action.ReadValue<float>();
+        l = left.input.action.ReadValue<float>();
+        r = right.input.action.ReadValue<float>();
 
 
         hSpeed = Mathf.Lerp(hSpeed
@@ -94,6 +106,7 @@ public class PlayerSteering : SteeringBehaviour
 
 
         harmonic.multiplier = l + r;
+        boid.speed = boid.maxSpeed * Mathf.Max(l, r);
         if (controlSpeed && controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {
             boid.maxSpeed = maxSpeed * hSpeed;
@@ -111,9 +124,9 @@ public class PlayerSteering : SteeringBehaviour
     {
         if (controlType == ControlType.Ride)
         {
-            force = (boid.right * rightForce * power)
-                + (boid.up * upForce * power);
-            force += average * Vector3.forward * power;            
+            //force = (boid.right * rightForce * power)
+            //    + (boid.up * upForce * power);
+            force = average * Vector3.forward * power;            
         }
         else if (controlType == ControlType.JellyTenticle)
         {
