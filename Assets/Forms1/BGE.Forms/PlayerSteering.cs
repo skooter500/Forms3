@@ -105,7 +105,7 @@ public class PlayerSteering : SteeringBehaviour
             );
 
 
-        harmonic.multiplier = l + r;
+        harmonic.multiplier = hSpeed;
         boid.speed = boid.maxSpeed * Mathf.Max(l, r);
         if (controlSpeed && controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {

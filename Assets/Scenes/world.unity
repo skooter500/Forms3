@@ -18583,8 +18583,8 @@ GameObject:
   - component: {fileID: 609485707}
   - component: {fileID: 609485706}
   - component: {fileID: 609485705}
-  - component: {fileID: 609485704}
   - component: {fileID: 609485703}
+  - component: {fileID: 609485704}
   - component: {fileID: 609485702}
   - component: {fileID: 609485701}
   - component: {fileID: 609485700}
@@ -18825,7 +18825,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0, w: 1}
   mass: 1
   maxSpeed: 500
-  maxForce: 500
+  maxForce: 800
   weight: 1
   damping: 0.01
   calculationMethod: 1

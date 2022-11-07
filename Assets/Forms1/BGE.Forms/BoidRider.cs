@@ -46,7 +46,13 @@ namespace BGE.Forms
                     boid.GetComponent<NoiseWander>().SetActive(true);
                 }
 
-                
+                if (boid.GetComponent<Harmonic>() != null)
+                {
+                    boid.GetComponent<Harmonic>().SetActive(true);
+                    boid.GetComponent<Harmonic>().auto = true;
+                }
+
+
                 boid.maxSpeed = boid.GetComponent<PlayerSteering>().maxSpeed;
 
 
@@ -69,7 +75,7 @@ namespace BGE.Forms
         public void OnTriggerEnter(Collider c)
         {
             GameObject other = c.gameObject;
-            if (other.tag == "Player")
+            if (other.tag == "Player" && !dontAttach)
             {
                 attached = true;
                 Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
@@ -119,7 +125,16 @@ namespace BGE.Forms
                 }
                 //boid.damping = 0.01f;
                 Debug.Log(boid);
+                dontAttach = true;
+                Invoke("Attach", 5);
             }
+        }
+
+        bool dontAttach = false;
+
+        void Attach()
+        {
+            dontAttach = false;
         }
 
         void OnTriggerStay(Collider c)
