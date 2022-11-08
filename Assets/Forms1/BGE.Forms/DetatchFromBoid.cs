@@ -12,11 +12,9 @@ public class DetatchFromBoid : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        /*
         CreatureManager.Log("" + Input.GetKeyDown(KeyCode.JoystickButton0));
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)
-            
-            )
+            /*|| ViveController.Instance.GetGrip() || OculusController.Instance.GetGrip()*/)
             
         {
             Boid boid = Utilities.FindBoidInHierarchy(this.gameObject);
@@ -42,6 +40,8 @@ public class DetatchFromBoid : MonoBehaviour {
                 GetComponent<Rigidbody>().isKinematic = false;
                 GetComponent<ForceController>().enabled = true;
 
+                //ViveController.Instance.boid = null;
+                //OculusController.Instance.boid = null;
 
                 if (boid.GetComponent<Seek>() != null)
                 {
@@ -64,6 +64,5 @@ public class DetatchFromBoid : MonoBehaviour {
                 rm.speed = 0.1f;
             }
         }
-        */
 	}
 }

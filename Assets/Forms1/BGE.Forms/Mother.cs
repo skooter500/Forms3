@@ -55,7 +55,7 @@ namespace BGE.Forms
                 //r.y = 0;
                 Vector3 r = Vector3.forward;
                 r *= Random.Range(start, sp.end);
-                //r += (r.normalized * start);
+                r += (r.normalized * start);
                 r = Quaternion.AngleAxis(Random.Range(-fov, fov), Vector3.up) * r;
 
                 newPos = player.transform.TransformPoint(r);
@@ -141,14 +141,14 @@ namespace BGE.Forms
             {
                 if (creature.GetComponent<LifeColours>())
                 {
-                    //creature.GetComponent<LifeColours>().FadeOut();
+                    creature.GetComponent<LifeColours>().FadeOut();
                 }
                 yield return new WaitForSeconds(2);
             }
             Boid[] boids = creature.GetComponentsInChildren<Boid>();
             foreach (Boid b in boids)
             {
-                //b.suspended = true;
+                b.suspended = true;
             }
             SchoolGenerator[] sgs = creature.GetComponentsInChildren<SchoolGenerator>();
             foreach (SchoolGenerator sg in sgs)
@@ -196,7 +196,7 @@ namespace BGE.Forms
                     GameObject species = sp.Species;
                     Vector3 boidPos = GetCreaturePosition(creature);
 
-                    Vector3 camPos = player.transform.position;
+                    Vector3 camPos = Camera.main.transform.position;
                     float dist = Vector3.Distance(boidPos, camPos);
                     bool behind;
                     //bool behind = (Vector3.Dot(boidPos - camPos, player.transform.forward) < 0) && (dist > 500);
@@ -250,7 +250,7 @@ namespace BGE.Forms
                     newCreature.SetActive(true);
                     if (newCreature.GetComponent<LifeColours>())
                     {
-                        //newCreature.GetComponent<LifeColours>().FadeIn();
+                        newCreature.GetComponent<LifeColours>().FadeIn();
                     }
                     if (newCreature.GetComponentInChildren<CreatureController>())
                     {

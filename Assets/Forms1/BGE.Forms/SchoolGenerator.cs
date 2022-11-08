@@ -118,7 +118,7 @@ namespace BGE.Forms
 
                     if (lc != null)
                     {
-                        //lc.FadeIn();
+                        lc.FadeIn();
                     }
                     // Wait for a frame
                     yield return null;
@@ -132,7 +132,7 @@ namespace BGE.Forms
                     Boid b = creature.GetComponentInChildren<Boid>();
                     if (b != null)
                     {
-                        //b.suspended = true;
+                        b.suspended = true;
                     }
                     suspended.Add(creature);
                     alive.RemoveAt(alive.Count - 1);
@@ -163,7 +163,6 @@ namespace BGE.Forms
         {
             CreatureManager.Log("T: " + targetCreatureCount + " A: " + alive.Count + " S: " + suspended.Count);
 
-            /*
             if (Input.GetKeyDown(KeyCode.P))
             {
                 targetCreatureCount += 5;
@@ -175,7 +174,6 @@ namespace BGE.Forms
                     targetCreatureCount -= 5;
                 }
             }
-            */
 
         }
 

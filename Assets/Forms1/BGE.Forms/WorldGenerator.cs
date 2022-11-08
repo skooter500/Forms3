@@ -156,7 +156,11 @@ namespace BGE.Forms
                 Debug.Log("Sampler is null! Add a sampler to the NoiseForm");
             }
         
-            
+            Random.seed = (int)System.DateTime.Now.Ticks;
+            foreach (Sampler s in samplers)
+            {
+                ((PerlinNoiseSampler)s).origin = Random.Range(-1000, 1000);
+            }
             
 
             /*
@@ -164,7 +168,7 @@ namespace BGE.Forms
             ((PerlinNoiseSampler)samplers[1]).origin = -747;
             ((PerlinNoiseSampler)samplers[2]).origin = 113;
             */
-            //player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
+            player.transform.position = new Vector3(0, SamplePos(0,0) + 500, 0);
             
             //Random.seed = 42;
         }
@@ -426,11 +430,11 @@ namespace BGE.Forms
             meshCollider.sharedMesh = null;
             meshCollider.sharedMesh = mesh;
 
-            //GameObject surface = MakeSurface(position);
-            //surface.transform.parent = tile.transform;
-            //surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
+            GameObject surface = MakeSurface(position);
+            surface.transform.parent = tile.transform;
+            surface.transform.localPosition = new Vector3(0, surfaceHeight, 0);
             tile.isStatic = true;
-            //surface.isStatic = true;
+            surface.isStatic = true;
             //surface.SetActive(false);
             return tile;
         }
@@ -501,7 +505,7 @@ namespace BGE.Forms
         {
             Shader.SetGlobalFloat("_HeightOffset", Time.time/ 10.0f);
 
-            /*float y = Input.GetAxis("DPadY");
+            float y = Input.GetAxis("DPadY");
 
             if (y == 1 && y != lastY)
             {
@@ -515,7 +519,6 @@ namespace BGE.Forms
                 SetGroundMaterialASync(topD);                
                 topD = -1;
             }
-            */
             ellapsed += Time.deltaTime;
         }
 

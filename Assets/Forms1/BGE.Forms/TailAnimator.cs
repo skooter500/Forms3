@@ -48,13 +48,13 @@ namespace BGE.Forms
             switch (driver)
             {
                 case DriverType.velocity:
-                    theta += speed * boid.TimeDelta * boid.velocity.magnitude;
+                    theta += speed * Time.deltaTime * boid.velocity.magnitude;
                     break;
                 case DriverType.acceleration:
-                    theta += speed * boid.TimeDelta * boid.acceleration.magnitude;
+                    theta += speed * Time.deltaTime * boid.acceleration.magnitude;
                     break;
                 case DriverType.force:
-                    theta += speed * boid.TimeDelta * boid.force.magnitude;
+                    theta += speed * Time.deltaTime * boid.force.magnitude;
                     break;
             }
         }

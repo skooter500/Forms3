@@ -29,6 +29,9 @@ namespace BGE.Forms
         [Range(-1000.0f, 1000.0f)]
         public float gap = 1;
 
+        public Color color = Color.blue;
+        public bool assignColors = true;
+
         [Range(1.0f, 5000.0f)]
         public float verticalSize = 1.0f;
 
@@ -234,7 +237,11 @@ namespace BGE.Forms
 
         void Start()
         {
-            Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);        
+            Utilities.SetLayerRecursively(this.gameObject, this.gameObject.layer);
+            if (assignColors)
+            {
+                Utilities.RecursiveSetColor(this.gameObject, color);
+            }
         }
 	
         // Update is called once per frame

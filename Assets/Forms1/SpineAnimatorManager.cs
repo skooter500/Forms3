@@ -191,16 +191,16 @@ public class SpineAnimatorSystem
     {
         roots[numJobs] = numBones;
         transforms.Add(sa.gameObject.transform);
-        bondDamping[numJobs] = sa.damping;
-        //angularBondDamping[numJobs] = sa.angularBondDamping;
-        boneCount[numJobs] = sa.children.Count + 1;
-        for (int i = 0; i < sa.children.Count; i++)
+        bondDamping[numJobs] = sa.bondDamping;
+        angularBondDamping[numJobs] = sa.angularBondDamping;
+        boneCount[numJobs] = sa.boneTransforms.Count + 1;
+        for (int i = 0; i < sa.boneTransforms.Count; i++)
         {
-            transforms.Add(sa.children[i]);
+            transforms.Add(sa.boneTransforms[i]);
             offsets[numBones + i + 1] = sa.offsets[i]; // No offset for the 0th
         }
         numJobs++;
-        numBones += sa.children.Count + 1;
+        numBones += sa.boneTransforms.Count + 1;
     }
 
     public SpineAnimatorSystem()

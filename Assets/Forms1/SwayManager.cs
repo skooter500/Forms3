@@ -85,7 +85,7 @@ public struct SwayJob : IJobParallelForTransform
         if (angle != 0)
         {
             t.localRotation = Quaternion.AngleAxis(
-                Utilities.Map(Mathf.Sin(theta), -1, 1, -angle, angle)
+                BGE.Forms.Utilities.Map(Mathf.Sin(theta), -1, 1, -angle, angle)
                 , axis[i]
                 );
         }

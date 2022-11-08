@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Ibuprogames.CameraTransitionsAsset;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 namespace BGE.Forms
 {
@@ -17,6 +17,8 @@ namespace BGE.Forms
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
+                pc.vrController.enabled = true;
+                pc.fc.enabled = true;
             }
 
             public override void Exit() { }
@@ -31,7 +33,7 @@ namespace BGE.Forms
             Cruise c;
             public override void Enter()
             {
-                Debug.Log("Enter on the Journeying state");
+                //Debug.Log("Journeying state");
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Journeying;
                 c = pc.cruise;
@@ -46,7 +48,7 @@ namespace BGE.Forms
                 pc.player.transform.parent = pc.playerCruise.transform;
                 pc.player.transform.localPosition = Vector3.zero;
                 pc.player.transform.rotation = pc.cruise.transform.rotation;
-                //pc.fc.desiredRotation = pc.cruise.transform.rotation;
+                pc.fc.desiredRotation = pc.cruise.transform.rotation;
                 c.gameObject.SetActive(true);
                 c.enabled = true;
             }
@@ -61,20 +63,28 @@ namespace BGE.Forms
 
         public void StartFollowing()
         {
+            StartCoroutine(FollowCoRoutine());
+        }
+
+        System.Collections.IEnumerator FollowCoRoutine()
+        {
             PlayerController pc;
             pc = this;
             pc.PickNewSpecies();
+            yield return new WaitForSeconds(0.1f);
             pc.PickNewTarget();
             pc.controlType = ControlType.Following;
             pc.player.GetComponent<Rigidbody>().isKinematic = true;
+            pc.vrController.enabled = false;
+            pc.fc.enabled = false;
             WorldGenerator.Instance.ForceCheck();
 
             // Calculate the position to move to
             SpawnParameters sp = pc.species.GetComponent<SpawnParameters>();
             float a = sp.followCameraHalfFOV;
             float angle = Random.Range(-a, a);
-            
-            Vector3 lp = Quaternion.Euler(sp.underneath ? 30 : 0, angle, 0) * Vector3.forward;
+
+            Vector3 lp = Quaternion.Euler(30, angle, 0) * Vector3.forward;
             lp.Normalize();
             lp *= pc.distance;
             Vector3 p = pc.creature.GetComponent<Boid>().TransformPoint(lp);
@@ -84,26 +94,36 @@ namespace BGE.Forms
             {
                 p.y = y + 50;
             }
+
+            /*Debug.Log("Angle: " + angle);
+            Debug.Log("lp: " + lp);
+            Debug.Log("Desired position: " + p);
+            Debug.Log("Viewing distance: " + sp.viewingDistance);
+            Debug.Log("Boid pos: " + pc.creature.GetComponent<Boid>().position);
+            Debug.Log("Camera pos: " + p);
+            Debug.Log("leader: " + pc.creature);
+            */
+
+            //
             pc.playerBoid.enabled = true;
             pc.playerBoid.maxSpeed = pc.species.GetComponent<SpawnParameters>().followCameraSpeed;
             pc.playerBoid.desiredPosition = p;
             pc.playerBoid.transform.position = p;
             pc.playerBoid.UpdateLocalFromTransform();
 
-            pc.op.leader = pc.creature.GetComponent<Boid>();
+            pc.op.leader = pc.creature;
             pc.playerBoid.velocity = pc.creature.GetComponent<Boid>().velocity;
             pc.op.Start();
             Utilities.SetActive(pc.sceneAvoidance, true);
             Utilities.SetActive(pc.op, true);
             pc.player.transform.position = p;
             pc.player.transform.rotation =
-                Quaternion.LookRotation(pc.op.leader.transform.position - p);
+                Quaternion.LookRotation(pc.op.leaderBoid.transform.position - p);
 
             Utilities.SetActive(pc.op, true);
             Utilities.SetActive(pc.seek, false);
             Utilities.SetActive(pc.sceneAvoidance, true);
         }
-
 
         class FollowState : State
         {
@@ -133,7 +153,6 @@ namespace BGE.Forms
 
             public override void Exit()
             {
-                /*
                 Quaternion q = Quaternion.LookRotation(pc.op.leaderBoid.transform.position - pc.player.transform.position);
                 Vector3 euler = q.eulerAngles;
                 q = Quaternion.Euler(euler.x, euler.y, 0);
@@ -144,7 +163,6 @@ namespace BGE.Forms
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
                 pc.vrController.enabled = true;
                 pc.fc.enabled = true;
-                */
 
 
                 //pc.sm.CancelDelayedStateChange();
@@ -173,10 +191,14 @@ namespace BGE.Forms
         public GameObject species;
         public GameObject creature;
         GameObject playerCruise;
-        //ForceController fc;
+        MonoBehaviour vrController;
+        ForceController fc;
         Cruise cruise;
-        
+        CameraTransition cameraTransition;
+
         public Mother mother;
+
+        CameraTransitionController ctc;
 
         bool waiting = false;
 
@@ -190,7 +212,7 @@ namespace BGE.Forms
         public void Awake()
         {
             PlayerController.Instance = this;
-            //ctc = GameObject.FindObjectOfType<CameraTransitionController>();
+            ctc = GameObject.FindObjectOfType<CameraTransitionController>();
             ConfigureBuild();
         }
 
@@ -198,7 +220,7 @@ namespace BGE.Forms
         int reactiveIndex = 0;
         int logoIndexToad = 0;
         int reactiveIndexToad = 0;
-        int videoIndex = 0;
+        int videoIndex = 100;
 
         public float journeying = 5.0f;
         public float delayMin = 30.0f;
@@ -206,7 +228,119 @@ namespace BGE.Forms
 
         public int creatureReps = 1;
         public float creaturesToLogosRatio = 1.5f;
-        
+
+        public System.Collections.IEnumerator Show()
+        {
+            StateMachine sm = GetComponent<StateMachine>();
+            while (true)
+            {
+                WorldGenerator.Instance.SetGroundMaterialASync(0);
+                while (logoIndex < ctc.leftEffects.Count)
+                {
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);
+                    ctc.left = logoIndex;
+                    ctc.ShowLeftEffect();
+                    logoIndex++;
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    for (int i = 0; i < creatureReps; i++)
+                    {
+                        sm.ChangeState(new FollowState());
+                        yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        SpawnParameters sp = species.GetComponent<SpawnParameters>();
+                        if (sp.effects.Length > 0)
+                        {
+                            int ei = Random.Range(0, sp.effects.Length);
+                            ctc.ShowEffect(sp.effects[ei]);
+                            yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        }
+                    }
+                }
+                while (reactiveIndex < ctc.rightEffects.Count)
+                {
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);
+                    ctc.right = reactiveIndex;
+                    ctc.ShowRightEffect();
+                    reactiveIndex++;
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    for (int i = 0; i < creatureReps; i++)
+                    {
+                        sm.ChangeState(new FollowState());
+                        yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        SpawnParameters sp = species.GetComponent<SpawnParameters>();
+                        if (sp.effects.Length > 0)
+                        {
+                            int ei = Random.Range(0, sp.effects.Length);
+                            ctc.ShowEffect(sp.effects[ei]);
+                            yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        }
+                    }                    
+                }
+                while (videoIndex < ctc.videoPlayer.videos.Count)
+                {
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);
+                    ctc.video = videoIndex;
+                    ctc.ShowVideo();
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(2);
+                    for (int i = 0; i < creatureReps; i++)
+                    {
+                        sm.ChangeState(new FollowState());
+                        yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        SpawnParameters sp = species.GetComponent<SpawnParameters>();
+                        if (sp.effects.Length > 0)
+                        {
+                            int ei = Random.Range(0, sp.effects.Length);
+                            ctc.ShowEffect(sp.effects[ei]);
+                            yield return new WaitForSeconds(Random.Range(delayMin * creaturesToLogosRatio, delayMax * creaturesToLogosRatio));
+                        }
+                    }
+                    videoIndex++;
+                }
+                sm.ChangeState(new JourneyingState());
+                ctc.HideEffect();
+                yield return new WaitForSeconds(journeying);
+                newToad.Toad();
+                while (logoIndexToad < ctc.leftEffects.Count)
+                {                    
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);                    
+                    ctc.left = logoIndexToad;
+                    ctc.ShowLeftEffect();
+                    logoIndexToad++;
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));                    
+                    //yield return new WaitForSeconds(2);                    
+                }
+                while (reactiveIndexToad < ctc.rightEffects.Count)
+                {                    
+                    sm.ChangeState(new JourneyingState());
+                    ctc.HideEffect();
+                    yield return new WaitForSeconds(journeying);
+                    ctc.right = reactiveIndexToad;
+                    ctc.ShowRightEffect();
+                    reactiveIndexToad++;
+                    yield return new WaitForSeconds(Random.Range(delayMin, delayMax));
+                }
+                newToad.Toad();
+                logoIndex = 0;
+                reactiveIndex = 0;
+                videoIndex = 0;
+                reactiveIndexToad = 0;
+                logoIndexToad = 0;
+            }
+        }
+
 
         int nextSpecies = 0;
 
@@ -242,9 +376,10 @@ namespace BGE.Forms
             player = GameObject.FindGameObjectWithTag("Player");
             playerCruise = GameObject.FindGameObjectWithTag("PlayerCruise");
 
-            //fc = player.GetComponent<ForceController>();
+            fc = player.GetComponent<ForceController>();
 
             sm = GetComponent<StateMachine>();
+            vrController = player.GetComponent<ViveController>();
             cruise = playerCruise.GetComponent<Cruise>();
             
 
@@ -255,19 +390,71 @@ namespace BGE.Forms
             op = playerBoid.GetComponent<OffsetPursue>();
             
             sm = GetComponent<StateMachine>();
-            sm.ChangeState(new FollowState());
+            sm.ChangeState(new PlayerState());
 
+            cameraTransition = GameObject.FindObjectOfType<CameraTransition>();
+            if (cameraTransition == null)
+                Debug.LogWarning(@"CameraTransition not found.");
 
             newToad = GetComponent<NewToad>();
 
-            //Invoke("LateStart", 5);
+            Invoke("LateStart", 5);
 
         }
 
         public void ConfigureBuild()
         {
-          
-          
+            switch (buildType)
+            {
+                case BuildType.Oculus:
+                    oculusStuff.SetActive(true);
+                    viveStuff.SetActive(false);
+                    vrController = GetComponent<OculusController>();
+                    vrController.enabled = true;
+                    mother.maxcreatures = 2;
+                    GetComponent<ViveController>().enabled = false;
+                    //GetComponent<AudioSource>().enabled = true;
+                    ctc.enabled = false;
+                    break;
+                case BuildType.Vive:
+                    oculusStuff.SetActive(false);
+                    viveStuff.SetActive(true);
+                    vrController = GetComponent<ViveController>();
+                    vrController.enabled = true;
+                    mother.maxcreatures = 2;
+                    GetComponent<OculusController>().enabled = false;
+                    //GetComponent<AudioSource>().enabled = true;
+                    ctc.enabled = false;
+                    break;
+                case BuildType.PC:
+                    oculusStuff.SetActive(false);
+                    viveStuff.SetActive(true);
+                    vrController = GetComponent<ViveController>();
+                    vrController.enabled = false;
+                    mother.maxcreatures = 15;
+                    GetComponent<AudioSource>().enabled = false;
+                    GetComponent<OculusController>().enabled = false;
+                    ctc.enabled = false;
+                    break;
+                case BuildType.VJ:
+                    oculusStuff.SetActive(false);
+                    viveStuff.SetActive(true);
+                    vrController = GetComponent<ViveController>();
+                    vrController.enabled = false;
+                    mother.maxcreatures = 10;
+                    GetComponent<OculusController>().enabled = false;
+                    GetComponent<AudioSource>().enabled = false;
+                    ctc.enabled = true;
+                    break;
+            }
+        }
+
+        public void SetVRControllerEnabled(MonoBehaviour controller, bool enabled)
+        {
+            if (buildType == BuildType.Oculus || buildType == BuildType.Vive)
+            {
+                vrController.enabled = enabled;
+            }
         }
 
         public float ellapsed = 0;
@@ -278,31 +465,11 @@ namespace BGE.Forms
         {
             StopAllCoroutines();
             showCoroutine = null;
+            //showCoroutine = StartCoroutine(Show());
         }
 
-        public void NextCreatuere(InputAction.CallbackContext context)
+        private void Update()
         {
-            StopAllCoroutines();
-            if (showCoroutine == null || ! (sm.currentState is FollowState))
-            {                            
-                sm.ChangeState(new FollowState());
-            }
-            showCoroutine = null;
-        }
-
-        public void PreviousCreatuere(InputAction.CallbackContext context)
-        {
-            StopAllCoroutines();
-            if (showCoroutine == null || ! (sm.currentState is FollowState))
-            {                            
-                sm.ChangeState(new FollowState());
-            }
-            showCoroutine = null;
-        }
-
-         void Update()
-        {
-            /*
             if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.J))
             {
                 clickCount = (clickCount + 1) % 6;
@@ -342,7 +509,6 @@ namespace BGE.Forms
                 }
                 clickCount = 0;
             }
-            */
 
             switch (controlType)
             {
@@ -352,7 +518,7 @@ namespace BGE.Forms
                 case ControlType.Following:
                     player.transform.position = playerBoid.transform.position;
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation
-                        , Quaternion.LookRotation(op.leader.transform.position - player.transform.position)
+                        , Quaternion.LookRotation(op.leaderBoid.transform.position - player.transform.position)
                         , Time.deltaTime / 2
                     );
                     break;

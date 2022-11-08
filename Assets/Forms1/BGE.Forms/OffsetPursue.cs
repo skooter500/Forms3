@@ -4,38 +4,61 @@ using System;
 
 namespace BGE.Forms
 {
-
     public class OffsetPursue : SteeringBehaviour
     {
-        public GameObject leaderGameObject;
-        public Boid leader;
-        Vector3 targetPos;
-        Vector3 worldTarget;
-        Vector3 offset;
+        [HideInInspector]
+        public Boid leaderBoid;
+        public GameObject leader;
+        public Vector3 offset = Vector3.zero;
+        private Vector3 targetPos;
 
-        // Start is called before the first frame update
+        public float pitchForceScale = 1;
+
+        public bool autoAssignOffset = true;
+
         public void Start()
         {
-            if (leaderGameObject != null)
+            if (autoAssignOffset && leader  != null)
             {
-                leader = leaderGameObject.GetComponentInChildren<Boid>();
-            }
-
-            offset = transform.position - leader.transform.position;
-
-            offset = Quaternion.Inverse(leader.transform.rotation) * offset;
+                leaderBoid = leader.GetComponentInChildren<Boid>();
+                offset = transform.position - leader.transform.position;
+                offset = Quaternion.Inverse(leader.transform.rotation) * offset;
+                targetPos = transform.position;
+            }            
         }
 
-        // Update is called once per frame
+        public void OnDrawGizmos()
+        {
+            if (isActiveAndEnabled && boid.drawGizmos && leaderBoid != null )
+            {
+                Gizmos.color = Color.yellow;
+                if (Application.isPlaying)
+                {
+                    Gizmos.DrawLine(transform.position, targetPos);
+                }
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawLine(transform.position, leaderBoid.transform.position);
+            }
+        }
+
         public override Vector3 Calculate()
         {
-            worldTarget = leader.TransformPoint(offset);
-            float dist = Vector3.Distance(boid.position, worldTarget);
-            float time = dist / boid.maxSpeed;
+            Vector3 newTarget = Vector3.zero;
 
-            targetPos = worldTarget + (leader.velocity * time);
-            return boid.ArriveForce(targetPos);
+            newTarget = leaderBoid.TransformPoint(offset);
+
+            float dist = (newTarget - boid.position).magnitude;
+
+            float lookAhead = (dist / boid.maxSpeed);
+
+            newTarget = newTarget + (lookAhead * leaderBoid.velocity);
+
+            float pitchForce = newTarget.y - boid.position.y;
+            pitchForce *= (1.0f - pitchForceScale);
+            newTarget.y -= pitchForce;
+
+            targetPos = newTarget;
+            return boid.SeekForce(targetPos);
         }
     }
-
 }

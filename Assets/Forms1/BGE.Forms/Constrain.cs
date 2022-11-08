@@ -14,7 +14,7 @@ namespace BGE.Forms
 
         public void OnDrawGizmos()
         {
-            if (isActiveAndEnabled && boid!= null && boid.drawGizmos)
+            if (isActiveAndEnabled && boid.drawGizmos)
             {
                 Gizmos.color = Color.gray;
                 Gizmos.DrawWireSphere(centre, radius);

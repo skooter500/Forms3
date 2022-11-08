@@ -155,7 +155,6 @@ namespace BGE.Forms
             Log("Num boids:" + boids.Count);
             Log("Suspended boids:" + suspended);
 
-            /*
             if (Input.GetKey(KeyCode.Escape))
             {
                 Application.Quit();
@@ -165,7 +164,6 @@ namespace BGE.Forms
             {
                 showMessages = !showMessages;
             }
-            */
         }
 
         long lastThreadCount = 0;
@@ -191,13 +189,11 @@ namespace BGE.Forms
                     {
                         continue;
                     }
-                    /*
                     if (boid.suspended)
                     {
                         suspended++;
                     }
                     else
-                    */
                     {
                         boid.force = boid.CalculateForce();
                     }
@@ -227,6 +223,8 @@ namespace BGE.Forms
         void StartUpdateThreads()
         {
             running = true;
+            Debug.Log("Starting thread...");
+
             for (int i = 0; i < boids.Count; i++)
             {
                 Boid boid = boids[i];

@@ -9,6 +9,7 @@ namespace BGE.Forms
     public class Harmonic : SteeringBehaviour
     {
         [Range(0.0f, 3600.0f)]
+        public float speed = 30;
         public float frequency = 1.0f;
         public float amplitude = 50;
         public Axis direction = Axis.Horizontal;
@@ -23,7 +24,7 @@ namespace BGE.Forms
         protected Vector3 target = Vector3.zero;
 
         [HideInInspector]
-        public float rampedFrequency = 0;
+        public float rampedSpeed = 0;
         [HideInInspector]
         public float rampedAmplitude = 0;
         [Range(0.0f, 500.0f)]
@@ -39,26 +40,25 @@ namespace BGE.Forms
         public virtual void Start()
         {
             theta = UnityEngine.Random.Range(0, Mathf.PI);
-
-            cc = GameObject.FindObjectOfType<CornerCamera>();
         }
 
-        public void OnDrawGizmos()
+        public virtual void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
-            Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward * distance, transform);
-            Gizmos.DrawWireSphere(wanderCircleCenter, radius);
-
-            if (worldTarget != Vector3.zero)
+            if (isActiveAndEnabled && boid.drawGizmos)
             {
-                Gizmos.DrawLine(transform.position, worldTarget);
-            }
+                Gizmos.color = Color.blue;
+                Vector3 wanderCircleCenter = Utilities.TransformPointNoScale(Vector3.forward * distance, transform);
+                Gizmos.DrawWireSphere(wanderCircleCenter, radius);
 
+                if (worldTarget != Vector3.zero)
+                {
+                    Gizmos.DrawLine(transform.position, worldTarget);
+                }
+            }
         }
 
         public override Vector3 Calculate()
         {
-            //Debug.Log("In ixlkfjvhdkfs");
             float n = Mathf.Sin(this.theta);
             rampedAmplitude = Mathf.Lerp(rampedAmplitude, amplitude, boid.TimeDelta);
 
@@ -91,17 +91,13 @@ namespace BGE.Forms
             worldTarget = boid.position + Quaternion.Euler(yawRoll) * localTarget;
             return boid.SeekForce(worldTarget);
         }
-
-        CornerCamera cc;
-
-        public float multiplier = 1.0f;
-
         public override void Update()
         {
-            //this.theta += Time.deltaTime * frequency * Mathf.PI * 2.0f * cc.timeScale;
-            rampedFrequency = Mathf.Lerp(rampedFrequency, frequency, boid.TimeDelta);
-            this.theta += boid.TimeDelta * rampedFrequency * Mathf.PI * 2.0f * multiplier;
-            
+            if (auto)
+            {
+                rampedSpeed = Mathf.Lerp(rampedSpeed, speed, Time.deltaTime);
+                this.theta += Time.deltaTime * rampedSpeed * Mathf.Deg2Rad;
+            }
         }
     }
 }

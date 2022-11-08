@@ -621,7 +621,6 @@ namespace BGE.Forms
         float lastX, lastY;
         public void Update()
         {
-            /*
             float x = Input.GetAxis("DPadX");
             float y = Input.GetAxis("DPadY");
 
@@ -654,11 +653,30 @@ namespace BGE.Forms
                 leftD = -1;
             }
             ellapsed += Time.deltaTime;
-            
+            /*
+            {
+                startingPattern = new StartingPattern(BoxStartingPattern);
+                startingPattern(current);
+            }
+            if (x == 1 && x != lastX)
+            {
+                startingPattern = new StartingPattern(CrossStartingPattern);
+                startingPattern(current);
+            }
+            if (y == 1 && y != lastY)
+            {
+                startingPattern = new StartingPattern(BoxStartingPattern);
+                startingPattern(current);
+            }
+            if (y == -1 && y != lastY)
+            {
+                startingPattern = new StartingPattern(Randomise);
+                startingPattern(current);
+            }
+            */
 
             lastX = x;
             lastY = y;
-            */
         }
 
         public float ellapsed = 0;

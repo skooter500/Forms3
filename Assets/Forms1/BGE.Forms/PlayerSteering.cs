@@ -2,7 +2,6 @@
 using System.Collections;
 using System;
 using BGE.Forms;
-using UnityEngine.Windows;
 
 public class PlayerSteering : SteeringBehaviour
 {
@@ -11,8 +10,8 @@ public class PlayerSteering : SteeringBehaviour
     public float upForce;
     public float rightForce;
 
-    //private ViveController viveController;
-    //private OculusController oculusController;
+    private ViveController viveController;
+    private OculusController oculusController;
     bool vrMode = false;
     private Vector3 viveForce;
 
@@ -32,88 +31,92 @@ public class PlayerSteering : SteeringBehaviour
     [HideInInspector]
     public bool controlSpeed = true;
 
-
-    private Thruster left;
-    private Thruster right;
-    private GameObject player;
-
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawLine(transform.position, transform.position + force * 50);
-    }
-
-    public void activateThrusters(bool b)
-    {
-        left.readInput = b;
-        right.readInput = b;
-    }
-
-
     public void Start()
     {
-        //viveController = FindObjectOfType<ViveController>();
-        //oculusController = FindObjectOfType<OculusController>();
+        viveController = FindObjectOfType<ViveController>();
+        oculusController = FindObjectOfType<OculusController>();
         harmonic = GetComponent<Harmonic>();
-        //vrMode = UnityEngine.XR.XRDevice.isPresent;
+        vrMode = true; //  UnityEngine.XR.XRDevice.isPresent;
         maxSpeed = boid.maxSpeed;
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        Thruster[] controllers = player.GetComponentsInChildren<Thruster>();
-        left = controllers[0];
-        right = controllers[1];
     }
-
-    float l;
-    float r;
     
 
     public override void Update()
     {
         base.Update();
-        Vector3[] points = new Vector3[2];
-        points[0] = transform.position;
-        points[1] = transform.position + force * 50;
-        LineRenderer lr = GetComponent<LineRenderer>();
-        if (lr == null)
+        upForce = -Input.GetAxis("Vertical");
+        rightForce = Input.GetAxis("Horizontal") * 0.6f;
+        CreatureManager.Log("Player force: " + force);
+        CreatureManager.Log("RightForce: " + rightForce);
+
+        /*
+
+        // Control the boid
+        if (viveController != null)
         {
-            lr = gameObject.AddComponent<LineRenderer>();
-        }
-        lr.SetPositions(points);
-        //Debug.DrawLine(transform.position, transform.position + force * 50);
-        average = Quaternion.Slerp(left.transform.parent.rotation
-    , right.transform.parent.rotation, 0.5f);
+            if (viveController.leftTrackedObject != null && viveController.rightTrackedObject != null  && viveController.leftTrackedObject.isActiveAndEnabled)
+            {
 
-        if (controlType == ControlType.Tenticle)
+                average = Quaternion.Slerp(viveController.leftTrackedObject.transform.rotation
+                    , viveController.rightTrackedObject.transform.rotation, 0.5f);
+
+                if (controlType == ControlType.Tenticle)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+                }
+                if (controlType == ControlType.TenticleFlipped)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+                }
+
+
+            }
+        }
+
+        if (oculusController != null && oculusController.isActiveAndEnabled)
         {
-            Vector3 xyz = average.eulerAngles;
-            harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+            if (OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) || OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch))
+            {
+
+                average = Quaternion.Slerp(oculusController.leftHand.rotation
+                    , oculusController.rightHand.rotation, 0.5f);
+
+                if (controlType == ControlType.Tenticle)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x + 180);
+                }
+                if (controlType == ControlType.TenticleFlipped)
+                {
+                    Vector3 xyz = average.eulerAngles;
+                    harmonic.theta = Mathf.Deg2Rad * (xyz.x);
+                    
+                }
+            }
         }
-        if (controlType == ControlType.TenticleFlipped)
-        {
-            Vector3 xyz = average.eulerAngles;
-            harmonic.theta = Mathf.Deg2Rad * (xyz.x);
-        }
+        */
 
-        l = left.input.action.ReadValue<float>();
-        r = right.input.action.ReadValue<float>();
-
-
-        hSpeed = Mathf.Lerp(hSpeed
-            , Utilities.Map(l + r, 0, 1, 0.1f, 0.8f)
+        /*
+              hSpeed = Mathf.Lerp(hSpeed
+            ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 2, 0.0f, 0.01f)
             , 2.0f * Time.deltaTime
             );
 
+        harmonic.theta += hSpeed * Time.deltaTime * harmonic.speed;
+        */
 
-        harmonic.multiplier = hSpeed;
-        boid.speed = boid.maxSpeed * Mathf.Max(l, r);
+        hSpeed = Mathf.Lerp(hSpeed
+            ,Utilities.Map(Input.GetAxis("LeftTrigger") + Input.GetAxis("RightTrigger"), 0, 1, 0.1f, 0.8f)
+            , 2.0f * Time.deltaTime
+            );
+
+        harmonic.theta += hSpeed * Time.deltaTime;
         if (controlSpeed && controlType == ControlType.Ride || controlType == ControlType.JellyTenticle)
         {
             boid.maxSpeed = maxSpeed * hSpeed;
         }
-        CreatureManager.Log("hSpeed: " + hSpeed);
-        CreatureManager.Log("h Direction: " + average * Vector3.forward);
-
         //Debug.Log("Cont: " + contWalk);
     }
 
@@ -124,9 +127,12 @@ public class PlayerSteering : SteeringBehaviour
     {
         if (controlType == ControlType.Ride)
         {
-            //force = (boid.right * rightForce * power)
-            //    + (boid.up * upForce * power);
-            force = average * Vector3.forward * power;            
+            force = (boid.right * rightForce * power)
+                + (boid.up * upForce * power);
+            if (vrMode)
+            {
+                force += average * Vector3.forward * power;
+            }
         }
         else if (controlType == ControlType.JellyTenticle)
         {
