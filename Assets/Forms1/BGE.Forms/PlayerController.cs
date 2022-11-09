@@ -17,8 +17,8 @@ namespace BGE.Forms
                 pc = owner.GetComponent<PlayerController>();
                 pc.controlType = ControlType.Player;
                 pc.player.GetComponent<Rigidbody>().isKinematic = false;
-                pc.vrController.enabled = true;
-                pc.fc.enabled = true;
+                //pc.vrController.enabled = true;
+                //pc.fc.enabled = true;
             }
 
             public override void Exit() { }
@@ -180,7 +180,7 @@ namespace BGE.Forms
         public ControlType controlType = ControlType.Player;
 
         public GameObject oculusStuff;
-        public GameObject viveStuff;
+        //public GameObject viveStuff;
 
         Seek seek;
         Boid playerBoid;
@@ -408,7 +408,7 @@ namespace BGE.Forms
             {
                 case BuildType.Oculus:
                     oculusStuff.SetActive(true);
-                    viveStuff.SetActive(false);
+                    //viveStuff.SetActive(false);
                     vrController = GetComponent<OculusController>();
                     vrController.enabled = true;
                     mother.maxcreatures = 2;
@@ -417,7 +417,7 @@ namespace BGE.Forms
                     //ctc.enabled = false;
                     break;
                 case BuildType.Vive:
-                    viveStuff.SetActive(true);
+                    //viveStuff.SetActive(true);
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = true;
                     //mother.maxcreatures = 2;
@@ -427,7 +427,7 @@ namespace BGE.Forms
                     break;
                 case BuildType.PC:
                     oculusStuff.SetActive(false);
-                    viveStuff.SetActive(true);
+                    //viveStuff.SetActive(true);
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = false;
                     mother.maxcreatures = 15;
@@ -437,7 +437,7 @@ namespace BGE.Forms
                     break;
                 case BuildType.VJ:
                     oculusStuff.SetActive(false);
-                    viveStuff.SetActive(true);
+                    //viveStuff.SetActive(true);
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = false;
                     mother.maxcreatures = 10;
