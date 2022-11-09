@@ -414,17 +414,16 @@ namespace BGE.Forms
                     mother.maxcreatures = 2;
                     GetComponent<ViveController>().enabled = false;
                     //GetComponent<AudioSource>().enabled = true;
-                    ctc.enabled = false;
+                    //ctc.enabled = false;
                     break;
                 case BuildType.Vive:
-                    oculusStuff.SetActive(false);
                     viveStuff.SetActive(true);
                     vrController = GetComponent<ViveController>();
                     vrController.enabled = true;
-                    mother.maxcreatures = 2;
+                    //mother.maxcreatures = 2;
                     GetComponent<OculusController>().enabled = false;
                     //GetComponent<AudioSource>().enabled = true;
-                    ctc.enabled = false;
+                    //ctc.enabled = false;
                     break;
                 case BuildType.PC:
                     oculusStuff.SetActive(false);

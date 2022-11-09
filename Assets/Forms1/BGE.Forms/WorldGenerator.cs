@@ -505,7 +505,7 @@ namespace BGE.Forms
         {
             Shader.SetGlobalFloat("_HeightOffset", Time.time/ 10.0f);
 
-            float y = Input.GetAxis("DPadY");
+            float y = 0; //  Input.GetAxis("DPadY");
 
             if (y == 1 && y != lastY)
             {

@@ -621,8 +621,8 @@ namespace BGE.Forms
         float lastX, lastY;
         public void Update()
         {
-            float x = Input.GetAxis("DPadX");
-            float y = Input.GetAxis("DPadY");
+            float x = 0; // Input.GetAxis("DPadX");
+            float y = 0; // Input.GetAxis("DPadY");
 
             if (x == -1 && x != lastX)
             {
